@@ -52,12 +52,6 @@ export const dataUrl = `data:image/svg+xml;base64,${toBase64(
 // ==== End
 
 // FORM URL QUERY
-export type FormUrlQueryParams = {
-  searchParams: URLSearchParams;
-  key: string;
-  value: string | null;
-};
-
 export const formUrlQuery = ({
   searchParams,
   key,
@@ -71,11 +65,6 @@ export const formUrlQuery = ({
 };
 
 // REMOVE KEY FROM QUERY
-export type RemoveUrlQueryParams = {
-  searchParams: string;
-  keysToRemove: string[];
-};
-
 export function removeKeysFromQuery({
   searchParams,
   keysToRemove,
@@ -95,26 +84,19 @@ export function removeKeysFromQuery({
 }
 
 // DEBOUNCE
-export const debounce = (func: (...args: unknown[]) => void, delay: number) => {
+export const debounce = (func: (...args: any[]) => void, delay: number) => {
   let timeoutId: NodeJS.Timeout | null;
-  return (...args: unknown[]) => {
+  return (...args: any[]) => {
     if (timeoutId) clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => func(...args), delay);
+    timeoutId = setTimeout(() => func.apply(null, args), delay);
   };
 };
 
-// GET IMAGE SIZE
-type ImageType = {
-  aspectRatio?: string;
-  width?: number;
-  height?: number;
-};
-
+// GE IMAGE SIZE
 export type AspectRatioKey = keyof typeof aspectRatioOptions;
-
 export const getImageSize = (
   type: string,
-  image: ImageType,
+  image: any,
   dimension: "width" | "height"
 ): number => {
   if (type === "fill") {
