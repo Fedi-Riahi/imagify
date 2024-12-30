@@ -9,7 +9,7 @@ interface MongooseConnection {
 
 // Define a type for the global object with mongoose property
 declare global {
-  var mongoose: MongooseConnection | undefined;
+  let mongoose: MongooseConnection | undefined;
 }
 
 let cached: MongooseConnection = global.mongoose || { conn: null, promise: null };
